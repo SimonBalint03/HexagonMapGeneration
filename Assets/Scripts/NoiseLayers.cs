@@ -1,6 +1,7 @@
 public enum NoiseLayers{
+    Combined,
     WaterHeight,
-    Climate,
-    Biome,
-    Combined
+    Temperature,
+    Rainfall,
+    Biome
 }

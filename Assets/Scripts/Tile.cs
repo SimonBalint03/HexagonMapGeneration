@@ -6,23 +6,20 @@ using System.Collections.Generic;
 
 public class Tile : MonoBehaviour
 {
-    private SpriteRenderer _spriteRenderer;
-    
-
+    private Material groundMat;
 
     private void Awake()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        groundMat = GetComponent<MeshRenderer>().materials[0];
     }
     
     public void SetColor(Color newColor)
     {
-        _spriteRenderer.color = newColor;
+        groundMat.color = newColor;
     }
     
     public WaterType WaterType { get; set; }
-
-    public ClimateType ClimateType { get; set; }
-
+    public TemperatureType TemperatureType { get; set; }
     public BiomeType BiomeType { get; set; }
+    public RainfallType RainfallType { get; set; }
 }
