@@ -365,6 +365,7 @@
 "Assets/Scripts/CameraController.cs"
 "Assets/Scripts/ColorStorage.cs"
 "Assets/Scripts/GridCreator.cs"
+"Assets/Scripts/LandModelAssigner.cs"
 "Assets/Scripts/NoiseAssignScript.cs"
 "Assets/Scripts/NoiseLayers.cs"
 "Assets/Scripts/PlayerManager.cs"
@@ -372,9 +373,9 @@
 "Assets/Scripts/TemperatureMap.cs"
 "Assets/Scripts/Tile.cs"
 "Assets/Scripts/TileTypes/BiomeType.cs"
+"Assets/Scripts/TileTypes/HeightType.cs"
 "Assets/Scripts/TileTypes/RainfallType.cs"
 "Assets/Scripts/TileTypes/TemperatureType.cs"
-"Assets/Scripts/TileTypes/WaterType.cs"
 "Assets/TutorialInfo/Scripts/Readme.cs"
 -langversion:9.0
 

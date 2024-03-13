@@ -19,11 +19,11 @@ public class PlayerManager : MonoBehaviour
     private void InitPlayer()
     {
         int cntr = 0;
-        while (cntr < 10000)
+        /*while (cntr < 10000)
         {
             int randX = Random.Range(0,_tiles.GetLength(0));
             int randY = Random.Range(0,_tiles.GetLength(1));
-            if (_tiles[randX,randY].GetComponent<Tile>().WaterType == WaterType.Land)
+            if (_tiles[randX,randY].GetComponent<Tile>().HeightType == HeightType.Land)
             {
                 _startingTile = _tiles[randX, randY];
                 // Init player
@@ -32,7 +32,7 @@ public class PlayerManager : MonoBehaviour
             }
 
             cntr++;
-        }
+        }*/
         _startingTile = _tiles[Random.Range(0, _tiles.GetLength(0)), Random.Range(0, _tiles.GetLength(1))];
         // Init player
         Instantiate(prefab, _startingTile.transform.position, prefab.transform.rotation);

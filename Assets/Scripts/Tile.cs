@@ -18,7 +18,7 @@ public class Tile : MonoBehaviour
         groundMat.color = newColor;
     }
     
-    public WaterType WaterType { get; set; }
+    public HeightType HeightType { get; set; }
     public TemperatureType TemperatureType { get; set; }
     public BiomeType BiomeType { get; set; }
     public RainfallType RainfallType { get; set; }

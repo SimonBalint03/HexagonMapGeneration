@@ -29,7 +29,7 @@ public class TemperatureMap : MonoBehaviour
                 float perlinValue = Mathf.PerlinNoise(x / scale + offset.x, y / scale + offset.y);
 
                 // Assign temperature based on the normalized distance and noise
-                temperatureMap[x, y] = Mathf.Lerp(1f - normalizedDistance, perlinValue, Random.Range(0.05f,0.2f));
+                temperatureMap[x, y] = Mathf.Lerp(normalizedDistance, perlinValue, Random.Range(0.05f,0.2f));
             }
         }
         return temperatureMap;

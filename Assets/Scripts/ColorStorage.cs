@@ -5,10 +5,12 @@ using UnityEngine.Serialization;
 
 public class ColorStorage : MonoBehaviour
 {
-    [Header("Water Layer")]
-    public Color water;
+    [Header("Height Layer")]
     public Color deepWater;
-    public Color land;
+    public Color water;
+    public Color flat;
+    public Color hill;
+    public Color mountain;
     
     [Header("Temperature Layer")]
     public Color veryCold;
@@ -25,16 +27,15 @@ public class ColorStorage : MonoBehaviour
     public Color lotsRain;
     
     [Header("Biome Colors")]
-    public Color tropicalRainForest;
-    public Color savanna;
-    public Color desert;
-    
-    public Color rainForest;
-    public Color forest;
-    public Color temperateForest;
-    
-    public Color taiga;
-    public Color tundra;
-    public Color ice;
-    
+    public Color rainForestColor;
+    public Color swampColor;
+    public Color seasonalForestColor;
+    public Color forestColor;
+    public Color savannaColor;
+    public Color shrublandColor;
+    public Color taigaColor;
+    public Color desertColor;
+    public Color plainsColor;
+    public Color iceDesertColor;
+    public Color tundraColor;    
 }

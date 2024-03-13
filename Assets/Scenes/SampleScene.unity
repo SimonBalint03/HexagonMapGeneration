@@ -344,7 +344,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 120, y: 180, z: 100}
+  m_LocalPosition: {x: 0, y: 100, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -579,9 +579,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 753091429}
-  - component: {fileID: 753091428}
   - component: {fileID: 753091430}
   - component: {fileID: 753091431}
+  - component: {fileID: 753091428}
+  - component: {fileID: 753091432}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -601,8 +602,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2609a346d4b93d48bcca3a2325ad6b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: {x: 128, y: 128}
-  tilePrefab: {fileID: 8563377468877007596, guid: df5b426f52387ff439c9e7f90e1426b8,
+  gridSize: {x: 84, y: 54}
+  defaultTile: {fileID: 2282448213741460784, guid: 2ab5a3ac3d9a9e446b8ed018215070bf,
+    type: 3}
+  hillTile: {fileID: 2943334909554758951, guid: 71726824f21719a4dbb39323ea13ba92,
+    type: 3}
+  waterTile: {fileID: 2707164363677134246, guid: e312a790727ef2f4d98025fa4da279eb,
+    type: 3}
+  deepWaterTile: {fileID: 8495997027349370745, guid: f60260d509d98ed449b4371feecea4db,
+    type: 3}
+  mountainTile: {fileID: 2751070295556665905, guid: 7b1ca4c9b45d46f4795460bf44cb996e,
     type: 3}
 --- !u!4 &753091429
 Transform:
@@ -631,10 +640,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcc7bad3adf46f9468ea178d3afafc58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterHeight: 0.5
+  waterHeight: 0.45
   deepWaterThreshold: 0.9
-  temperature: 1.4
-  rainfall: 0.8
+  hilliness: -0.1
+  temperature: 1
+  rainfall: 1
   waterScale: 20
   climateScale: 30
   noiseLayers: 0
@@ -650,9 +660,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a046dbb8668b16949983c3d26aaf45b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  water: {r: 0, g: 0.6627451, b: 0.80784315, a: 1}
   deepWater: {r: 0.09803922, g: 0.5254902, b: 0.62352943, a: 1}
-  land: {r: 0.60784316, g: 1, b: 0.53333336, a: 1}
+  water: {r: 0, g: 0.6627451, b: 0.80784315, a: 1}
+  flat: {r: 0.5647059, g: 0.93333334, b: 0.5647059, a: 1}
+  hill: {r: 0, g: 0.39215687, b: 0, a: 1}
+  mountain: {r: 0.507, g: 0.507, b: 0.507, a: 1}
   veryCold: {r: 0.305, g: 1, b: 0.946409, a: 1}
   cold: {r: 0.21300006, g: 0.5586628, b: 1, a: 1}
   mildTemp: {r: 0.14883961, g: 0.794, b: 0, a: 1}
@@ -663,15 +675,29 @@ MonoBehaviour:
   mildRain: {r: 0.45882356, g: 0.9843138, b: 0.29803923, a: 1}
   muchRain: {r: 0.882353, g: 0.7568628, b: 0.2509804, a: 1}
   lotsRain: {r: 0.9176471, g: 0.20000002, b: 0.9686275, a: 1}
-  tropicalRainForest: {r: 0, g: 0.39215687, b: 0, a: 1}
-  savanna: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  desert: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
-  rainForest: {r: 0.13333334, g: 0.54509807, b: 0.13333334, a: 1}
-  forest: {r: 0, g: 0.5019608, b: 0, a: 1}
-  temperateForest: {r: 0.19607843, g: 0.8039216, b: 0.19607843, a: 1}
-  taiga: {r: 0, g: 0.39215687, b: 0, a: 1}
-  tundra: {r: 0.5294118, g: 0.80784315, b: 0.92156863, a: 1}
-  ice: {r: 1, g: 1, b: 1, a: 1}
+  rainForestColor: {r: 0, g: 0.39215687, b: 0, a: 1}
+  swampColor: {r: 0.33333334, g: 0.41960785, b: 0.18431373, a: 1}
+  seasonalForestColor: {r: 0.13333334, g: 0.54509807, b: 0.13333334, a: 1}
+  forestColor: {r: 0.18039216, g: 0.54509807, b: 0.34117648, a: 1}
+  savannaColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+  shrublandColor: {r: 0.62299997, g: 0.49145654, b: 0.161357, a: 1}
+  taigaColor: {r: 0.25490198, g: 0.4117647, b: 0.88235295, a: 1}
+  desertColor: {r: 0.9411765, g: 0.9019608, b: 0.54901963, a: 1}
+  plainsColor: {r: 0.8235294, g: 0.7058824, b: 0.54901963, a: 1}
+  iceDesertColor: {r: 0.6901961, g: 0.76862746, b: 0.87058824, a: 1}
+  tundraColor: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
+--- !u!114 &753091432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753091427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 106a0bdad626b354fa0909adf2529c28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1025,74 +1051,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1975738273}
   m_CullTransparentMesh: 1
---- !u!1001 &6520280974768347563
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5923415358465600078, guid: df5b426f52387ff439c9e7f90e1426b8,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5923415358465600078, guid: df5b426f52387ff439c9e7f90e1426b8,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5923415358465600078, guid: df5b426f52387ff439c9e7f90e1426b8,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5923415358465600078, guid: df5b426f52387ff439c9e7f90e1426b8,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9659258
-      objectReference: {fileID: 0}
-    - target: {fileID: 5923415358465600078, guid: df5b426f52387ff439c9e7f90e1426b8,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5923415358465600078, guid: df5b426f52387ff439c9e7f90e1426b8,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.2588191
-      objectReference: {fileID: 0}
-    - target: {fileID: 5923415358465600078, guid: df5b426f52387ff439c9e7f90e1426b8,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5923415358465600078, guid: df5b426f52387ff439c9e7f90e1426b8,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5923415358465600078, guid: df5b426f52387ff439c9e7f90e1426b8,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5923415358465600078, guid: df5b426f52387ff439c9e7f90e1426b8,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8563377468877007596, guid: df5b426f52387ff439c9e7f90e1426b8,
-        type: 3}
-      propertyPath: m_Name
-      value: Hex
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: df5b426f52387ff439c9e7f90e1426b8, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1104,4 +1062,3 @@ SceneRoots:
   - {fileID: 1852133401}
   - {fileID: 1850868348}
   - {fileID: 700513273}
-  - {fileID: 6520280974768347563}
