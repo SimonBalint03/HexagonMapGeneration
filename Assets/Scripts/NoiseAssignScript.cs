@@ -18,7 +18,7 @@ public class NoiseAssignScript : MonoBehaviour
     [Header("Height")]
     [Range(-0.1f,1.1f)]public float waterHeight;
     [Range(0.1f, 1)] public float deepWaterThreshold;
-    [Range(-0.2f, 0.2f)] public float hilliness;
+    [Range(0.1f, 2)] public float hilliness;
     
     
     
@@ -45,9 +45,15 @@ public class NoiseAssignScript : MonoBehaviour
     private float[,] rainNoiseMap;
     private RainfallMap _rainfallMap;
 
+    private float[,] hillNoiseMap;
+    private HillMap _hillMap;
+
+    private RiverGenerator _riverGenerator;
+
     private LandModelAssigner LandModelAssigner;
     
     [Header("DEBUG")] public NoiseLayers noiseLayers;
+    public GameObject debugPoint; 
 
     private void OnValidate()
     {
@@ -55,10 +61,13 @@ public class NoiseAssignScript : MonoBehaviour
         RefreshColors();
     }
 
-    void Start()
+    private void Start()
     {
-        _temperatureMap = gameObject.AddComponent<TemperatureMap>();
-        _rainfallMap = gameObject.AddComponent<RainfallMap>();
+        _temperatureMap = new TemperatureMap();
+        _rainfallMap = new RainfallMap();
+        _hillMap = new HillMap();
+        _riverGenerator = gameObject.AddComponent<RiverGenerator>();
+        
         _gridCreator = GetComponent<GridCreator>();
         cS = GetComponent<ColorStorage>();
         LandModelAssigner = GetComponent<LandModelAssigner>();
@@ -76,9 +85,11 @@ public class NoiseAssignScript : MonoBehaviour
         //biomeNoiseMap = CreateHeightMap(biomeScale);
         tempNoiseMap = _temperatureMap.GenerateTemperatureMap(width, height, climateScale);
         rainNoiseMap = _rainfallMap.GenerateRainfallMap(width, height, climateScale);
+        hillNoiseMap = _hillMap.GenerateHillMap(width, height, 5);
         AssignTypes();
         RefreshColors();
         
+        _riverGenerator.GenerateRiverData(_gridCreator.GetTilesAsTile(),debugPoint);
         LandModelAssigner.RefreshLandModels();
     }
 
@@ -112,66 +123,66 @@ public class NoiseAssignScript : MonoBehaviour
         {
             if (rainNoiseMap[x, y] > 0.8f * Random.Range(0.9f,1f) * rainfall)
             {
-                tile.BiomeType = BiomeType.RainForest;
+                tile.biomeType = BiomeType.RainForest;
             }
             else if (rainNoiseMap[x, y] > 0.5f * Random.Range(0.9f,1f) * rainfall)
             {
-                tile.BiomeType = BiomeType.SeasonalForest;
+                tile.biomeType = BiomeType.SeasonalForest;
             }
             else if (rainNoiseMap[x, y] > 0.2f * Random.Range(0.9f,1f) * rainfall)
             {
-                tile.BiomeType = BiomeType.Plains;
+                tile.biomeType = BiomeType.Plains;
             }
             else
             {
-                tile.BiomeType = BiomeType.Desert;
+                tile.biomeType = BiomeType.Desert;
             }
         }
         else if (tempNoiseMap[x, y] > 0.4f * Random.Range(0.9f,1f) * temperature)
         {
             if (rainNoiseMap[x, y] > 0.8f * Random.Range(0.9f,1f) * rainfall)
             {
-                tile.BiomeType = BiomeType.Swamp;
+                tile.biomeType = BiomeType.Swamp;
             }
             else if (rainNoiseMap[x, y] > 0.2f * Random.Range(0.9f,1f) * rainfall)
             {
-                tile.BiomeType = BiomeType.Forest;
+                tile.biomeType = BiomeType.Forest;
             }
             else if (rainNoiseMap[x, y] > 0.1f * Random.Range(0.9f,1f) * rainfall)
             {
-                tile.BiomeType = BiomeType.Shrubland;
+                tile.biomeType = BiomeType.Shrubland;
             }
             else
             {
-                tile.BiomeType = BiomeType.Savanna;
+                tile.biomeType = BiomeType.Savanna;
             }
         }
         else if (tempNoiseMap[x, y] > 0.25f * Random.Range(0.9f,1f) * temperature)
         {
             if (rainNoiseMap[x, y] > 0.6f * Random.Range(0.9f,1f) * rainfall)
             {
-                tile.BiomeType = BiomeType.SeasonalForest;
+                tile.biomeType = BiomeType.SeasonalForest;
             }
             else if (rainNoiseMap[x, y] > 0.3f * Random.Range(0.9f,1f) * rainfall)
             {
-                tile.BiomeType = BiomeType.Forest;
+                tile.biomeType = BiomeType.Forest;
             }
             else
             {
-                tile.BiomeType = BiomeType.Plains;
+                tile.biomeType = BiomeType.Plains;
             }
         }
         else if (rainNoiseMap[x, y] > 0.3f * Random.Range(0.9f,1f) * rainfall)
         {
-            tile.BiomeType = BiomeType.Taiga;
+            tile.biomeType = BiomeType.Taiga;
         }
         else if (rainNoiseMap[x, y] > 0.15f * Random.Range(0.9f,1f) * rainfall)
         {
-            tile.BiomeType = BiomeType.Tundra;
+            tile.biomeType = BiomeType.Tundra;
         }
         else
         {
-            tile.BiomeType = BiomeType.IceDesert;
+            tile.biomeType = BiomeType.IceDesert;
         }
     }
 
@@ -179,23 +190,23 @@ public class NoiseAssignScript : MonoBehaviour
     {
         if (rainNoiseMap[x, y] > rainfall * 0.8f)
         {
-            tile.RainfallType = RainfallType.LotsRain;
+            tile.rainfallType = RainfallType.LotsRain;
         }
         else if (rainNoiseMap[x, y].Between(rainfall * 0.65f, rainfall * 0.8f))
         {
-            tile.RainfallType = RainfallType.MuchRain;
+            tile.rainfallType = RainfallType.MuchRain;
         }
         else if (rainNoiseMap[x, y].Between(rainfall * 0.4f, rainfall * 0.65f))
         {
-            tile.RainfallType = RainfallType.MildRain;
+            tile.rainfallType = RainfallType.MildRain;
         }
         else if (rainNoiseMap[x, y].Between(rainfall * 0.15f, rainfall * 0.4f))
         {
-            tile.RainfallType = RainfallType.FewRain;
+            tile.rainfallType = RainfallType.FewRain;
         }
         else if (rainNoiseMap[x, y] < rainfall * 0.15f)
         {
-            tile.RainfallType = RainfallType.NoRain;
+            tile.rainfallType = RainfallType.NoRain;
         }
     }
 
@@ -203,23 +214,23 @@ public class NoiseAssignScript : MonoBehaviour
     {
         if (tempNoiseMap[x, y] > temperature * 0.8f)
         {
-            tile.TemperatureType = TemperatureType.VeryHot;
+            tile.temperatureType = TemperatureType.VeryHot;
         }
         else if (tempNoiseMap[x, y].Between(temperature * 0.6f, temperature * 0.8f))
         {
-            tile.TemperatureType = TemperatureType.Hot;
+            tile.temperatureType = TemperatureType.Hot;
         }
         else if (tempNoiseMap[x, y].Between(temperature * 0.3f, temperature * 0.6f))
         {
-            tile.TemperatureType = TemperatureType.Mild;
+            tile.temperatureType = TemperatureType.Mild;
         }
         else if (tempNoiseMap[x, y].Between(temperature * 0.1f, temperature * 0.3f))
         {
-            tile.TemperatureType = TemperatureType.Cold;
+            tile.temperatureType = TemperatureType.Cold;
         }
         else if (tempNoiseMap[x, y] < temperature * 0.1f)
         {
-            tile.TemperatureType = TemperatureType.VeryCold;
+            tile.temperatureType = TemperatureType.VeryCold;
         }
     }
 
@@ -227,25 +238,38 @@ public class NoiseAssignScript : MonoBehaviour
     {
         if (waterHeightMap[x, y] > waterHeight)
         {
-            if (waterHeightMap[x, y] > waterHeight*1.5f - hilliness)
+            if (hillNoiseMap[x,y] * hilliness > 0.9f)
             {
-                tile.HeightType = HeightType.Mountain;
-            } else if (waterHeightMap[x, y] > waterHeight*1.2f - hilliness)
+                tile.heightType = HeightType.Mountain;
+            }else if (hillNoiseMap[x, y] * hilliness > 0.7f)
             {
-                tile.HeightType = HeightType.Hill;
+                tile.heightType = HeightType.Hill;
             }
             else
             {
-                tile.HeightType = HeightType.Flat;
+                tile.heightType = HeightType.Flat;
             }
+            
+            //tile.heightType = HeightType.Flat;
+            // if (waterHeightMap[x, y] > waterHeight*1.5f - hilliness)
+            // {
+            //     tile.heightType = HeightType.Mountain;
+            // } else if (waterHeightMap[x, y] > waterHeight*1.2f - hilliness)
+            // {
+            //     tile.heightType = HeightType.Hill;
+            // }
+            // else
+            // {
+            //     tile.heightType = HeightType.Flat;
+            // }
         }
         else if (waterHeightMap[x, y] < waterHeight * deepWaterThreshold)
         {
-            tile.HeightType = HeightType.DeepWater;
+            tile.heightType = HeightType.DeepWater;
         }
         else if (waterHeightMap[x, y] < waterHeight)
         {
-            tile.HeightType = HeightType.Water;
+            tile.heightType = HeightType.Water;
         }
     }
 
@@ -260,7 +284,7 @@ public class NoiseAssignScript : MonoBehaviour
                 switch (noiseLayers)
                 {
                     case NoiseLayers.Height:
-                        switch (tile.HeightType)
+                        switch (tile.heightType)
                         {
                             case HeightType.Flat:
                                 tile.SetColor(cS.flat);
@@ -280,7 +304,7 @@ public class NoiseAssignScript : MonoBehaviour
                         }
                         break;
                     case NoiseLayers.Temperature:
-                        switch (tile.TemperatureType)
+                        switch (tile.temperatureType)
                         {
                             case TemperatureType.VeryCold:
                                 tile.SetColor(cS.veryCold);
@@ -300,7 +324,7 @@ public class NoiseAssignScript : MonoBehaviour
                         }
                         break;
                     case NoiseLayers.Rainfall:
-                        switch (tile.RainfallType)
+                        switch (tile.rainfallType)
                         {
                             case RainfallType.NoRain:
                                 tile.SetColor(cS.noRain);
@@ -320,7 +344,7 @@ public class NoiseAssignScript : MonoBehaviour
                         }
                         break;
                     case NoiseLayers.Biome:
-                        switch (tile.BiomeType)
+                        switch (tile.biomeType)
                         {
                             case BiomeType.RainForest:
                                 tile.SetColor(cS.rainForestColor);
@@ -358,7 +382,7 @@ public class NoiseAssignScript : MonoBehaviour
                         }
                         break;
                     case NoiseLayers.Combined:
-                        switch (tile.BiomeType)
+                        switch (tile.biomeType)
                         {
                             case BiomeType.RainForest:
                                 tile.SetColor(cS.rainForestColor);
@@ -395,7 +419,7 @@ public class NoiseAssignScript : MonoBehaviour
                                 break;
                         }
 
-                        switch (tile.HeightType)
+                        switch (tile.heightType)
                         {
                             case HeightType.Water:
                                 tile.SetColor(cS.water);

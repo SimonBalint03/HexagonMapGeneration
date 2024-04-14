@@ -554,7 +554,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec61a019fd37f734195ece908c8a8362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 7177488652374417924, guid: a3f4a7411b8cdfa42bfcd50d8058236c, type: 3}
 --- !u!4 &700513273
 Transform:
   m_ObjectHideFlags: 0
@@ -642,12 +641,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waterHeight: 0.45
   deepWaterThreshold: 0.9
-  hilliness: -0.1
+  hilliness: 1.2
   temperature: 1
   rainfall: 1
   waterScale: 20
-  climateScale: 30
-  noiseLayers: 0
+  climateScale: 20
+  noiseLayers: 1
+  debugPoint: {fileID: 6745318806715469962, guid: 8711ddd219d833a4398e604f55274077,
+    type: 3}
 --- !u!114 &753091431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -663,7 +664,7 @@ MonoBehaviour:
   deepWater: {r: 0.09803922, g: 0.5254902, b: 0.62352943, a: 1}
   water: {r: 0, g: 0.6627451, b: 0.80784315, a: 1}
   flat: {r: 0.5647059, g: 0.93333334, b: 0.5647059, a: 1}
-  hill: {r: 0, g: 0.39215687, b: 0, a: 1}
+  hill: {r: 0.20778799, g: 0.574, b: 0.20778799, a: 1}
   mountain: {r: 0.507, g: 0.507, b: 0.507, a: 1}
   veryCold: {r: 0.305, g: 1, b: 0.946409, a: 1}
   cold: {r: 0.21300006, g: 0.5586628, b: 1, a: 1}

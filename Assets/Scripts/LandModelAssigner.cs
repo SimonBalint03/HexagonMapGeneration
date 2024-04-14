@@ -38,10 +38,10 @@ public class LandModelAssigner : MonoBehaviour
         _tiles = GridCreator.GetTiles();
         foreach (GameObject tile in _tiles)
         {
-            if (tile.GetComponent<Tile>().HeightType == HeightType.Hill)
+            if (tile.GetComponent<Tile>().heightType == HeightType.Hill)
             {
                 tile.GetComponent<MeshFilter>().mesh = hillPrefab.GetComponent<MeshFilter>().sharedMesh;
-            } else if (tile.GetComponent<Tile>().HeightType == HeightType.Mountain)
+            } else if (tile.GetComponent<Tile>().heightType == HeightType.Mountain)
             {
                 tile.GetComponent<MeshFilter>().mesh = mountainTile.GetComponent<MeshFilter>().sharedMesh;
             }
@@ -53,7 +53,7 @@ public class LandModelAssigner : MonoBehaviour
         _tiles = GridCreator.GetTiles();
         foreach (GameObject tile in _tiles)
         {
-            if (tile.GetComponent<Tile>().HeightType == HeightType.Flat)
+            if (tile.GetComponent<Tile>().heightType == HeightType.Flat)
             {
                 tile.GetComponent<MeshFilter>().mesh = flatPrefab.GetComponent<MeshFilter>().sharedMesh;
             }
@@ -64,10 +64,10 @@ public class LandModelAssigner : MonoBehaviour
         _tiles = GridCreator.GetTiles();
         foreach (GameObject tile in _tiles)
         {
-            if (tile.GetComponent<Tile>().HeightType == HeightType.Water)
+            if (tile.GetComponent<Tile>().heightType == HeightType.Water)
             {
                 tile.GetComponent<MeshFilter>().mesh = waterPrefab.GetComponent<MeshFilter>().sharedMesh;
-            } else if (tile.GetComponent<Tile>().HeightType == HeightType.DeepWater)
+            } else if (tile.GetComponent<Tile>().heightType == HeightType.DeepWater)
             {
                 tile.GetComponent<MeshFilter>().mesh = deepWaterTile.GetComponent<MeshFilter>().sharedMesh;
             }

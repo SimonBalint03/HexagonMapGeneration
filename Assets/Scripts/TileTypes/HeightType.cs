@@ -2,7 +2,6 @@ using System;
 
 namespace TileTypes
 {
-[Serializable]
     public enum HeightType 
     {
         DeepWater,
