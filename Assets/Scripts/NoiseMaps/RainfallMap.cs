@@ -30,16 +30,13 @@ public class RainfallMap
 
                 // Use another layer of Perlin noise with a different scale for additional variation
                 float perlinValue2 = Mathf.PerlinNoise(x / (scale * 2) + offset.x, y / (scale * 2) + offset.y);
-                
-                // Use another layer of Perlin noise with a different scale for additional variation
-                float perlinValue3 = Mathf.PerlinNoise(x / (scale * 0.5f) + offset.x, y / (scale * 0.5f) + offset.y);
 
                 // Combine the two noise layers with subtraction and adjust amplitude to control overall precipitation
                 float precipitation = Mathf.Clamp01(perlinValue1 - perlinValue2 );
 
                 // Blend the precipitation based on the normalized distance to the top and bottom
                 precipitationMap[x, y] = Mathf.Lerp(0f, 1f,
-                    normalizedDistance * Random.Range(0.9f, 1f)) - precipitation * 1.5f;
+                    normalizedDistance * Random.Range(0.9f, 1f)) - precipitation * 2f;
             }
         }
         return precipitationMap;

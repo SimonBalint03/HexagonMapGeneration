@@ -96,3 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 226ef22fa45f4be4487e5e6581947450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  position: {x: 0, y: 0}
+  heightType: 0
+  temperatureType: 0
+  biomeType: 0
+  rainfallType: 0
+  isRiver: 0

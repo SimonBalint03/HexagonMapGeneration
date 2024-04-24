@@ -30,6 +30,10 @@ public class GridCreator : MonoBehaviour
 
     private void InstantiateGrid()
     {
+        Transform hexParent = new GameObject("Hexagons").transform;
+        hexParent.parent = transform;
+        
+        
         _tiles = new GameObject[gridSize.x, gridSize.y];
         for (int q = 0; q < gridSize.x; q++)
         {
@@ -45,7 +49,7 @@ public class GridCreator : MonoBehaviour
                 }
 
                 Vector3 hexPosition = new Vector3(x, 0f, z);
-                _tiles[q, r] = Instantiate(defaultTile, hexPosition, Quaternion.identity, transform);
+                _tiles[q, r] = Instantiate(defaultTile, hexPosition, Quaternion.identity, hexParent);
                 _tiles[q, r].GetComponent<Tile>().position = new Vector2Int(q, r);
             }
         }
@@ -63,17 +67,17 @@ public class GridCreator : MonoBehaviour
             for (int y = 0; y < tiles.GetLength(1); y++)
             {
                 Tile tile = tiles[x, y];
-                List<GameObject> nearbyTiles = new List<GameObject>();
+                List<NearbyTile> nearbyTiles = new List<NearbyTile>();
                 try
                 {
-                    // Top right
+                    // Top right, dir: 0
                     if (tile.position.y % 2 == 0)
                     {
-                        nearbyTiles.Add(tiles[x, y+1].gameObject);
+                        nearbyTiles.Add(new NearbyTile(0, tiles[x, y + 1]));
                     }
                     else
                     {
-                        nearbyTiles.Add(tiles[x+1, y+1].gameObject);
+                        nearbyTiles.Add(new NearbyTile(0,tiles[x+1, y+1]));
                     }
                     
                 }catch
@@ -83,7 +87,7 @@ public class GridCreator : MonoBehaviour
                 try
                 {
                     // Right
-                    nearbyTiles.Add(tiles[x + 1, y].gameObject);
+                    nearbyTiles.Add(new NearbyTile(1,tiles[x + 1, y]));
                 }
                 catch
                 {
@@ -94,11 +98,11 @@ public class GridCreator : MonoBehaviour
                     // Bottom right
                     if (tile.position.y % 2 == 0)
                     {
-                        nearbyTiles.Add(tiles[x, y-1].gameObject);
+                        nearbyTiles.Add(new NearbyTile(2,tiles[x, y-1]));
                     }
                     else
                     {
-                        nearbyTiles.Add(tiles[x+1, y-1].gameObject);
+                        nearbyTiles.Add(new NearbyTile(2,tiles[x+1, y-1]));
                     }
                 }
                 catch
@@ -110,11 +114,11 @@ public class GridCreator : MonoBehaviour
                     // Bottom left
                     if (tile.position.y % 2 == 0)
                     {
-                        nearbyTiles.Add(tiles[x-1, y-1].gameObject);
+                        nearbyTiles.Add(new NearbyTile(3,tiles[x-1, y-1]));
                     }
                     else
                     {
-                        nearbyTiles.Add(tiles[x, y-1].gameObject);
+                        nearbyTiles.Add(new NearbyTile(3,tiles[x, y-1]));
                     }
                 }
                 catch
@@ -124,7 +128,7 @@ public class GridCreator : MonoBehaviour
                 try
                 {
                     // Left
-                    nearbyTiles.Add(tiles[x-1,y].gameObject);
+                    nearbyTiles.Add(new NearbyTile(4,tiles[x-1,y]));
                 }
                 catch
                 {
@@ -135,11 +139,11 @@ public class GridCreator : MonoBehaviour
                     // Top left
                     if (tile.position.y % 2 == 0)
                     {
-                        nearbyTiles.Add(tiles[x-1, y+1].gameObject);
+                        nearbyTiles.Add(new NearbyTile(5,tiles[x-1, y+1]));
                     }
                     else
                     {
-                        nearbyTiles.Add(tiles[x, y+1].gameObject);
+                        nearbyTiles.Add(new NearbyTile(5,tiles[x, y+1]));
                     }
                 }
                 catch

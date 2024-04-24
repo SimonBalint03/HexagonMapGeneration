@@ -601,7 +601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2609a346d4b93d48bcca3a2325ad6b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: {x: 84, y: 54}
+  gridSize: {x: 86, y: 54}
   defaultTile: {fileID: 2282448213741460784, guid: 2ab5a3ac3d9a9e446b8ed018215070bf,
     type: 3}
   hillTile: {fileID: 2943334909554758951, guid: 71726824f21719a4dbb39323ea13ba92,
@@ -640,14 +640,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waterHeight: 0.45
-  deepWaterThreshold: 0.9
+  deepWaterThreshold: 0.88
   hilliness: 1.2
   temperature: 1
   rainfall: 1
-  waterScale: 20
-  climateScale: 20
-  noiseLayers: 1
-  debugPoint: {fileID: 6745318806715469962, guid: 8711ddd219d833a4398e604f55274077,
+  waterScale: 15
+  climateScale: 15
+  forestPrefab: {fileID: 1651920433676046316, guid: 0267cecc216678b44b2946a0f95009a4,
+    type: 3}
+  noiseLayers: 0
+  riverDebugPoint: {fileID: 6745318806715469962, guid: 8711ddd219d833a4398e604f55274077,
+    type: 3}
+  cityDebugPoint: {fileID: 6745318806715469962, guid: f07ef2cfc20d277458e13d604d381dd6,
     type: 3}
 --- !u!114 &753091431
 MonoBehaviour:
@@ -682,7 +686,7 @@ MonoBehaviour:
   forestColor: {r: 0.18039216, g: 0.54509807, b: 0.34117648, a: 1}
   savannaColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
   shrublandColor: {r: 0.62299997, g: 0.49145654, b: 0.161357, a: 1}
-  taigaColor: {r: 0.25490198, g: 0.4117647, b: 0.88235295, a: 1}
+  taigaColor: {r: 0.5223147, g: 0.561, b: 0.293964, a: 1}
   desertColor: {r: 0.9411765, g: 0.9019608, b: 0.54901963, a: 1}
   plainsColor: {r: 0.8235294, g: 0.7058824, b: 0.54901963, a: 1}
   iceDesertColor: {r: 0.6901961, g: 0.76862746, b: 0.87058824, a: 1}
