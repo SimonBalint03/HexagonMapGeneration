@@ -1,5 +1,8 @@
 # Hexagon Map Generator Tool
-<img width="547" alt="image" src="https://github.com/SimonBalint03/HexagonMapGenerator/assets/94404223/eab99044-6be7-4069-a257-e49414c7b9df">
+Blue dots are rivers, red dots are cities.
+
+![image](https://github.com/SimonBalint03/HexagonMapGenerator/assets/94404223/60a92f24-1d85-4b4f-87c3-24ae740f7873)
+
 
 ## Rainfall Layer
 <img width="552" alt="image" src="https://github.com/SimonBalint03/HexagonMapGenerator/assets/94404223/dc8c5e18-b8f0-48c0-8192-7fa83f7f5223">
